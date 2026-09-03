@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f6f0e8" />
+  <meta name="description" content="SQL Middle+ Trainer — PostgreSQL для системного аналитика: теория, практика, автопроверка и подготовка к собеседованию." />
+  <title>SQL Middle+ Trainer</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div id="boot" class="boot">
+    <div class="boot-card">
+      <div class="logo-orb">SQL</div>
+      <div>
+        <strong>Запускаю PostgreSQL в браузере…</strong>
+        <span id="bootDetail">Инициализация PGlite и учебной CRM</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">SQL</div>
+        <div><strong>Middle+ Trainer</strong><span>системный аналитик</span></div>
+      </div>
+
+      <nav class="main-nav">
+        <button data-view="course" class="nav-btn active"><span>01</span>Курс</button>
+        <button data-view="practice" class="nav-btn"><span>02</span>Практика</button>
+        <button data-view="interview" class="nav-btn"><span>03</span>Собеседование</button>
+        <button data-view="progress" class="nav-btn"><span>04</span>Прогресс</button>
+      </nav>
+
+      <div class="sidebar-progress">
+        <div class="progress-label"><span>Прогресс курса</span><strong id="overallProgressText">0%</strong></div>
+        <div class="progress-track"><div id="overallProgressBar" class="progress-bar"></div></div>
+        <small id="overallProgressMeta">0 / 40 уроков</small>
+      </div>
+
+      <div class="sidebar-note">
+        <strong>Текущий фокус</strong>
+        <span id="currentFocus">Урок 3 · CRUD</span>
+      </div>
+
+      <button id="resetDbBtn" class="ghost danger">Сбросить учебную БД</button>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow">PostgreSQL · CRM case · Middle+</span>
+          <h1 id="pageTitle">Курс</h1>
+        </div>
+        <div class="top-actions">
+          <button id="schemaBtn" class="ghost compact">Схема CRM</button>
+          <div class="status-pill"><span id="dbDot"></span><span id="dbStatus">PostgreSQL готов</span></div>
+        </div>
+      </header>
+
+      <section id="courseView" class="view"></section>
+      <section id="practiceView" class="view hidden"></section>
+      <section id="interviewView" class="view hidden"></section>
+      <section id="progressView" class="view hidden"></section>
+    </main>
+  </div>
+
+  <dialog id="schemaDialog" class="modal">
+    <div class="modal-head">
+      <div><span class="eyebrow">Учебная модель</span><h2>CRM schema</h2></div>
+      <button class="icon-btn" data-close-dialog>×</button>
+    </div>
+    <div id="schemaContent" class="schema-content"></div>
+  </dialog>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

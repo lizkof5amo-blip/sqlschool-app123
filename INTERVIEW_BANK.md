@@ -1,0 +1,101 @@
+# Банк вопросов для собеседования
+
+- **Урок 1. БД, PostgreSQL и первый SELECT:** Чем PostgreSQL отличается от SQL?
+- **Урок 1. БД, PostgreSQL и первый SELECT:** Почему responsible_user_id лучше хранения имени менеджера?
+- **Урок 1. БД, PostgreSQL и первый SELECT:** Может ли PRIMARY KEY быть VARCHAR/UUID?
+- **Урок 1. БД, PostgreSQL и первый SELECT:** Чем NULL отличается от пустой строки?
+- **Урок 2. Типы данных, ограничения и CREATE TABLE:** Почему телефон VARCHAR, а не BIGINT?
+- **Урок 2. Типы данных, ограничения и CREATE TABLE:** Почему деньги NUMERIC, а не FLOAT?
+- **Урок 2. Типы данных, ограничения и CREATE TABLE:** Чем NOT NULL отличается от CHECK?
+- **Урок 2. Типы данных, ограничения и CREATE TABLE:** Что произойдёт с FK при удалении родителя без ON DELETE CASCADE?
+- **Урок 3. INSERT, UPDATE, DELETE, RETURNING и CRUD:** Почему UPDATE без WHERE опасен?
+- **Урок 3. INSERT, UPDATE, DELETE, RETURNING и CRUD:** Зачем INSERT перечислять колонки?
+- **Урок 3. INSERT, UPDATE, DELETE, RETURNING и CRUD:** Что даёт RETURNING?
+- **Урок 3. INSERT, UPDATE, DELETE, RETURNING и CRUD:** DELETE и soft delete — когда что использовать?
+- **Урок 4. SELECT глубже: выражения, aliases, DISTINCT:** Почему SELECT * нежелателен в контрактных запросах?
+- **Урок 4. SELECT глубже: выражения, aliases, DISTINCT:** Когда DISTINCT маскирует ошибку JOIN?
+- **Урок 4. SELECT глубже: выражения, aliases, DISTINCT:** Можно ли использовать alias в WHERE?
+- **Урок 5. WHERE: AND/OR/NOT, IN, BETWEEN и приоритет:** Что выполнится раньше: AND или OR?
+- **Урок 5. WHERE: AND/OR/NOT, IN, BETWEEN и приоритет:** Включает ли BETWEEN границы?
+- **Урок 5. WHERE: AND/OR/NOT, IN, BETWEEN и приоритет:** Почему даты часто фильтруют полуинтервалом?
+- **Урок 6. Строки: LIKE/ILIKE, функции и нормализация поиска:** Чем LIKE отличается от ILIKE?
+- **Урок 6. Строки: LIKE/ILIKE, функции и нормализация поиска:** Почему LIKE %text% плохо масштабируется на B-tree?
+- **Урок 6. Строки: LIKE/ILIKE, функции и нормализация поиска:** Где лучше нормализовать телефон?
+- **Урок 7. NULL и трёхзначная логика:** Почему x = NULL не работает?
+- **Урок 7. NULL и трёхзначная логика:** Попадёт ли NULL в WHERE price <> 100?
+- **Урок 7. NULL и трёхзначная логика:** Чем COALESCE отличается от DEFAULT?
+- **Урок 8. Дата, время, интервалы и часовые пояса:** Чем TIMESTAMP отличается от TIMESTAMPTZ?
+- **Урок 8. Дата, время, интервалы и часовые пояса:** Почему хранение UTC упрощает интеграции?
+- **Урок 8. Дата, время, интервалы и часовые пояса:** Почему < next_day надёжнее <= 23:59:59?
+- **Урок 9. ORDER BY, LIMIT/OFFSET и keyset pagination:** Почему LIMIT без ORDER BY не гарантирует одни и те же строки?
+- **Урок 9. ORDER BY, LIMIT/OFFSET и keyset pagination:** Чем keyset лучше OFFSET?
+- **Урок 10. Агрегаты: COUNT/SUM/AVG/MIN/MAX:** Чем COUNT(*) отличается от COUNT(price)?
+- **Урок 10. Агрегаты: COUNT/SUM/AVG/MIN/MAX:** Игнорирует ли AVG NULL?
+- **Урок 10. Агрегаты: COUNT/SUM/AVG/MIN/MAX:** Как посчитать несколько статусов одним проходом?
+- **Урок 11. GROUP BY и функциональная зависимость:** Что такое grain результата?
+- **Урок 11. GROUP BY и функциональная зависимость:** Почему нельзя просто SELECT name вместе с SUM без GROUP BY?
+- **Урок 12. HAVING и условная агрегация:** Можно ли использовать агрегат в WHERE?
+- **Урок 12. HAVING и условная агрегация:** Когда условие нужно перенести из HAVING в WHERE ради производительности?
+- **Урок 13. INNER JOIN: кардинальность и ключ соединения:** Почему JOIN может увеличить число строк?
+- **Урок 13. INNER JOIN: кардинальность и ключ соединения:** Чем ON отличается от WHERE?
+- **Урок 13. INNER JOIN: кардинальность и ключ соединения:** Почему JOIN по name рискован?
+- **Урок 14. LEFT/RIGHT/FULL/CROSS JOIN:** Как найти сделки без задач?
+- **Урок 14. LEFT/RIGHT/FULL/CROSS JOIN:** Почему условие на правую таблицу в WHERE может превратить LEFT JOIN в INNER?
+- **Урок 15. Many-to-many и junction tables:** Почему unit_price хранится в deal_products, а не только products.price?
+- **Урок 15. Many-to-many и junction tables:** Какой PK выбрать для junction table?
+- **Урок 16. Self JOIN и иерархии:** Зачем алиасы обязательны в self JOIN?
+- **Урок 16. Self JOIN и иерархии:** Какие проблемы возникают с циклами в иерархии?
+- **Урок 17. JOIN 3–6 таблиц и контроль дублей:** Как найти JOIN, который размножил строки?
+- **Урок 17. JOIN 3–6 таблиц и контроль дублей:** Почему DISTINCT — плохой первый фикс?
+- **Урок 18. EXISTS, NOT EXISTS и semi/anti joins:** Когда EXISTS лучше INNER JOIN?
+- **Урок 18. EXISTS, NOT EXISTS и semi/anti joins:** NOT IN и NULL — в чём ловушка?
+- **Урок 19. Подзапросы: scalar, IN и correlated:** Когда scalar subquery упадёт с more than one row?
+- **Урок 19. Подзапросы: scalar, IN и correlated:** Чем correlated subquery опасен для производительности?
+- **Урок 20. CTE и WITH:** CTE всегда материализуется?
+- **Урок 20. CTE и WITH:** Когда рекурсивный CTE полезен аналитику?
+- **Урок 21. CASE и условные метрики:** Что произойдёт, если подходят два WHEN?
+- **Урок 21. CASE и условные метрики:** CASE в SELECT и CASE внутри SUM — чем различаются задачи?
+- **Урок 22. UNION / UNION ALL / INTERSECT / EXCEPT:** Почему UNION ALL предпочтительнее, когда дубли допустимы?
+- **Урок 22. UNION / UNION ALL / INTERSECT / EXCEPT:** Как EXCEPT использовать для сверки двух систем?
+- **Урок 23. Оконные функции: OVER/PARTITION BY:** Чем PARTITION BY отличается от GROUP BY?
+- **Урок 23. Оконные функции: OVER/PARTITION BY:** RANK vs DENSE_RANK vs ROW_NUMBER?
+- **Урок 24. Продвинутые окна: LAG/LEAD и frames:** Зачем LAG?
+- **Урок 24. Продвинутые окна: LAG/LEAD и frames:** Почему default frame может удивить при одинаковых ORDER BY значениях?
+- **Урок 25. DDL: ALTER/DROP/TRUNCATE и schemas:** DELETE vs TRUNCATE?
+- **Урок 25. DDL: ALTER/DROP/TRUNCATE и schemas:** Что произойдёт при ADD COLUMN NOT NULL без DEFAULT на непустой таблице?
+- **Урок 26. FK, CHECK, CASCADE, RESTRICT и deferrable:** Когда CASCADE опасен?
+- **Урок 26. FK, CHECK, CASCADE, RESTRICT и deferrable:** RESTRICT vs SET NULL — какие бизнес-смыслы?
+- **Урок 27. Нормализация 1NF–3NF и аномалии:** Что такое update anomaly?
+- **Урок 27. Нормализация 1NF–3NF и аномалии:** Всегда ли денормализация плоха?
+- **Урок 28. ERD, кардинальность и optionality:** Как понять, нужна ли junction table?
+- **Урок 28. ERD, кардинальность и optionality:** В чём разница 0..1 и 1..1?
+- **Урок 29. Natural vs surrogate keys, UUID и идентичность:** Когда natural key оправдан?
+- **Урок 29. Natural vs surrogate keys, UUID и идентичность:** Почему внешний ID не всегда хороший PK?
+- **Урок 30. Индексы: B-tree, composite, partial, expression:** Почему индекс на boolean часто бесполезен?
+- **Урок 30. Индексы: B-tree, composite, partial, expression:** Порядок колонок composite index — почему важен?
+- **Урок 31. EXPLAIN / EXPLAIN ANALYZE:** Почему EXPLAIN ANALYZE опасен для DML?
+- **Урок 31. EXPLAIN / EXPLAIN ANALYZE:** Что означает большая разница estimated vs actual rows?
+- **Урок 32. Транзакции и ACID:** Что такое transaction boundary?
+- **Урок 32. Транзакции и ACID:** Почему слишком длинная транзакция вредна?
+- **Урок 33. Isolation, MVCC и аномалии конкурентности:** Что такое lost update?
+- **Урок 33. Isolation, MVCC и аномалии конкурентности:** Как MVCC уменьшает блокировки чтения?
+- **Урок 33. Isolation, MVCC и аномалии конкурентности:** Когда нужен SELECT FOR UPDATE?
+- **Урок 34. Locks и deadlocks:** Чем blocking отличается от deadlock?
+- **Урок 34. Locks и deadlocks:** Как единый порядок lock уменьшает deadlocks?
+- **Урок 35. Performance anti-patterns и SARGability:** Что такое N+1?
+- **Урок 35. Performance anti-patterns и SARGability:** Почему SELECT * может быть performance-проблемой?
+- **Урок 36. Views, materialized views и контракт чтения:** View хранит данные?
+- **Урок 36. Views, materialized views и контракт чтения:** Когда materialized view лучше обычного view?
+- **Урок 37. JSONB, массивы и гибкие атрибуты:** Когда JSONB оправдан?
+- **Урок 37. JSONB, массивы и гибкие атрибуты:** Почему FK внутрь JSONB проблематичен?
+- **Урок 38. Миграции, data quality, dedup и soft delete:** Что такое backfill?
+- **Урок 38. Миграции, data quality, dedup и soft delete:** Как обеспечить идемпотентность импорта?
+- **Урок 38. Миграции, data quality, dedup и soft delete:** Soft delete — какие минусы?
+- **Урок 39. SQL на собеседовании системного аналитика:** Напиши запрос: топ-3 менеджера по won revenue за месяц.
+- **Урок 39. SQL на собеседовании системного аналитика:** Почему NOT IN может вернуть неожиданно 0 строк при NULL?
+- **Урок 39. SQL на собеседовании системного аналитика:** Как найти последнюю сделку каждого контакта тремя способами?
+- **Урок 39. SQL на собеседовании системного аналитика:** Опиши миграцию обязательного поля без простоя.
+- **Урок 40. Capstone: спроектируй CRM-интеграцию end-to-end:** Какие вопросы ты задашь заказчику до ERD?
+- **Урок 40. Capstone: спроектируй CRM-интеграцию end-to-end:** Где проходит transaction boundary?
+- **Урок 40. Capstone: спроектируй CRM-интеграцию end-to-end:** Как обеспечишь идемпотентность webhook?
+- **Урок 40. Capstone: спроектируй CRM-интеграцию end-to-end:** Какие индексы добавишь и почему?

@@ -1,79 +1,144 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#f6f0e8" />
-  <meta name="description" content="SQL Middle+ Trainer — PostgreSQL для системного аналитика: теория, практика, автопроверка и подготовка к собеседованию." />
-  <title>SQL Middle+ Trainer</title>
-  <link rel="stylesheet" href="./styles.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SQL Middle+ Trainer</title>
+<style>
+:root{--bg:#f6f0e8;--card:#fffaf4;--line:#ded1c4;--ink:#2e2925;--muted:#766d65;--accent:#b86743;--green:#52745d;--red:#a9554d}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}button,textarea{font:inherit}
+.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}.side{padding:22px;border-right:1px solid var(--line);background:#fff9f3;position:sticky;top:0;height:100vh}
+.brand{font-weight:900;font-size:20px;margin-bottom:24px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+nav{display:grid;gap:7px}nav button{border:0;background:transparent;padding:11px;text-align:left;border-radius:12px;color:var(--muted);cursor:pointer;font-weight:700}
+nav button.active,nav button:hover{background:#ead8ca;color:#7c452f}.progress{margin-top:20px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.bar{height:8px;background:#eadfd5;border-radius:99px;overflow:hidden;margin:8px 0}.bar>i{display:block;height:100%;background:var(--accent);width:5%}.main{padding:24px 28px 60px;min-width:0}
+.top{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:20px}.status{font-size:12px;padding:8px 12px;border:1px solid var(--line);border-radius:99px;background:var(--card)}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:20px}.hero{padding:24px;margin-bottom:18px}.hero h1{margin:5px 0 10px;font-size:31px}.muted{color:var(--muted);line-height:1.6}
+.grid{display:grid;grid-template-columns:330px 1fr;gap:18px}.list{display:grid;gap:7px;max-height:calc(100vh - 190px);overflow:auto;position:sticky;top:20px}
+.lesson{border:1px solid var(--line);background:#fffdf9;border-radius:13px;padding:11px;text-align:left;cursor:pointer}.lesson.active{background:#eddacb;border-color:#caa48d}
+.lesson b,.lesson small{display:block}.lesson small{color:var(--muted);margin-top:3px}.card{padding:22px}.tag{display:inline-block;padding:5px 8px;border-radius:99px;background:#f1e4d8;font-size:10px;margin:0 5px 6px 0}
+h2{margin-top:0}.section{border-top:1px solid #eadfd5;padding-top:16px;margin-top:16px;line-height:1.65}.section code,pre{font-family:Consolas,monospace}
+pre{background:#2b2723;color:#f7efe8;padding:14px;border-radius:12px;overflow:auto}.btn{border:0;background:var(--accent);color:#fff;padding:10px 14px;border-radius:11px;cursor:pointer;font-weight:800}.btn.alt{background:#efe3d8;color:var(--ink);border:1px solid var(--line)}
+.practice{display:grid;grid-template-columns:320px 1fr;gap:18px}.exlist{display:grid;gap:7px}.ex{padding:10px;border:1px solid var(--line);border-radius:11px;background:#fff;text-align:left;cursor:pointer}.ex.done{border-left:4px solid var(--green)}
+textarea.sql{width:100%;min-height:240px;background:#292622;color:#fff;border:1px solid #3b3530;border-radius:14px;padding:15px;font:14px/1.6 Consolas,monospace}
+.actions{display:flex;gap:8px;margin:12px 0}.feedback{padding:12px;border-radius:12px;margin-top:10px}.ok{background:#e6efe8;color:#36563f}.bad{background:#f3e3df;color:#783d36}
+table{border-collapse:collapse;width:100%;font-size:12px;background:#fff}th,td{padding:8px 9px;border-bottom:1px solid #eee1d7;text-align:left}.scroll{overflow:auto;max-height:330px;border:1px solid var(--line);border-radius:12px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.kpi{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:16px}.kpi strong{display:block;font-size:25px;margin-top:5px}
+.hidden{display:none}.pill{font-size:10px;color:var(--muted)}@media(max-width:900px){.app{grid-template-columns:1fr}.side{height:auto;position:relative}.grid,.practice{grid-template-columns:1fr}.list{position:relative;max-height:none}.kpis{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
-  <div id="boot" class="boot">
-    <div class="boot-card">
-      <div class="logo-orb">SQL</div>
-      <div>
-        <strong>Запускаю PostgreSQL в браузере…</strong>
-        <span id="bootDetail">Инициализация PGlite и учебной CRM</span>
-      </div>
-    </div>
-  </div>
+<div class="app">
+<aside class="side">
+  <div class="brand">SQL Middle+<small>тренажёр системного аналитика</small></div>
+  <nav>
+    <button class="active" data-view="course">Курс</button>
+    <button data-view="practice">Практика</button>
+    <button data-view="interview">Собеседование</button>
+    <button data-view="progress">Прогресс</button>
+  </nav>
+  <div class="progress"><small>Прогресс курса</small><div class="bar"><i id="bar"></i></div><b id="prog">2 / 40</b><small>Уроки 1–2 перенесены из чата</small></div>
+</aside>
+<main class="main">
+  <div class="top"><div><small class="pill">PostgreSQL · CRM case · Middle+</small><h2 id="page">Курс</h2></div><div class="status" id="dbStatus">PostgreSQL запускается…</div></div>
+  <section id="course"></section><section id="practice" class="hidden"></section><section id="interview" class="hidden"></section><section id="progress" class="hidden"></section>
+</main>
+</div>
+<script type="module">
+import { PGlite } from 'https://cdn.jsdelivr.net/npm/@electric-sql/pglite/dist/index.js';
 
-  <div id="app" class="app hidden">
-    <aside class="sidebar">
-      <div class="brand">
-        <div class="brand-mark">SQL</div>
-        <div><strong>Middle+ Trainer</strong><span>системный аналитик</span></div>
-      </div>
+const roadmap=[
+'БД, SQL и реляционная модель','Типы данных, constraints и CREATE TABLE','CRUD: INSERT, UPDATE, DELETE','SELECT глубже: aliases, DISTINCT, expressions',
+'WHERE: AND/OR/NOT, IN, BETWEEN','Строки: LIKE, ILIKE, функции','NULL и трёхзначная логика','ORDER BY, LIMIT, OFFSET, keyset pagination',
+'Агрегаты COUNT/SUM/AVG/MIN/MAX','GROUP BY','HAVING и порядок выполнения SQL','Модель данных и кардинальности',
+'INNER JOIN','LEFT/RIGHT/FULL JOIN','Несколько JOIN и размножение строк','N:M и таблицы-связки',
+'CASE и условная логика','Подзапросы, IN, EXISTS, NOT EXISTS','CTE и WITH','Set operations: UNION/INTERSECT/EXCEPT',
+'Оконные функции','ROW_NUMBER, RANK, DENSE_RANK','LAG, LEAD, running totals','Нормализация 1NF–3NF',
+'ERD, сущности, атрибуты и связи','Natural vs surrogate keys, UUID, external_id','FK actions: CASCADE/RESTRICT/SET NULL','Индексы: B-tree и селективность',
+'Составные, partial и expression indexes','EXPLAIN / EXPLAIN ANALYZE','Транзакции и ACID','Isolation levels и anomalies',
+'MVCC и блокировки','SELECT FOR UPDATE, race conditions, deadlocks','Views и materialized views','JSONB в PostgreSQL',
+'Миграции, backfill и zero-downtime изменения','Soft delete, дедупликация и идемпотентность','Performance anti-patterns и SQL review','Middle+ interview + финальный CRM capstone'
+];
+const details={
+1:{lvl:'Base',summary:'Фундамент: чем БД отличается от СУБД и SQL, как устроена таблица и зачем PK/FK.',
+theory:[['Модель','База данных — организованная совокупность данных. PostgreSQL — СУБД. SQL — язык взаимодействия с реляционной БД. Таблица описывает сущность, строка — экземпляр, столбец — атрибут.'],['Ключи','PRIMARY KEY однозначно идентифицирует строку внутри таблицы. FOREIGN KEY хранится в дочерней таблице и ссылается на ключ родительской.'],['NULL','NULL означает неизвестное/отсутствующее значение и не равен 0, пустой строке или FALSE.']],interview:['Чем SQL отличается от PostgreSQL?','Почему responsible_user_id лучше responsible_user_name?']},
+2:{lvl:'Base',summary:'Типизация и правила целостности данных.',
+theory:[['Типы','INTEGER/BIGINT — целые числа; VARCHAR/TEXT — строки; BOOLEAN — true/false; DATE — дата; TIMESTAMP — дата и время; NUMERIC(p,s) — точные числа, в том числе деньги.'],['Constraints','NOT NULL запрещает NULL. UNIQUE запрещает повтор значения. DEFAULT задаёт значение по умолчанию. CHECK ограничивает допустимые значения.'],['Практика аналитика','Тип данных — не просто техническая деталь. Он фиксирует часть контракта данных. Для телефона обычно VARCHAR, а не BIGINT; для денег NUMERIC, а не FLOAT.']],interview:['Может ли PRIMARY KEY быть строкой?','Чем тип данных отличается от constraint?']},
+3:{lvl:'Base+',summary:'Полноценный CRUD и безопасное изменение данных.',
+theory:[['INSERT','Добавляет строки. Хорошая привычка — явно перечислять колонки: INSERT INTO contacts (name, phone) VALUES (...). Это снижает зависимость от физического порядка столбцов.'],['UPDATE','UPDATE изменяет существующие строки. Критически важно сначала проверить WHERE через SELECT. UPDATE без WHERE меняет всю таблицу.'],['DELETE','DELETE удаляет строки. DELETE без WHERE удалит все строки. В реальной системе часто нужен soft delete, но это отдельная архитектурная тема.'],['RETURNING','PostgreSQL умеет вернуть созданную/изменённую строку через RETURNING. Для интеграций это удобно: INSERT ... RETURNING id.'],['CRUD','Create = INSERT, Read = SELECT, Update = UPDATE, Delete = DELETE. На собеседовании важно не только знать команды, но объяснять риски целостности и безопасный порядок действий.']],interview:['Чем DELETE отличается от TRUNCATE?','Что произойдёт при UPDATE без WHERE?','Зачем INSERT ... RETURNING id?']}
+};
 
-      <nav class="main-nav">
-        <button data-view="course" class="nav-btn active"><span>01</span>Курс</button>
-        <button data-view="practice" class="nav-btn"><span>02</span>Практика</button>
-        <button data-view="interview" class="nav-btn"><span>03</span>Собеседование</button>
-        <button data-view="progress" class="nav-btn"><span>04</span>Прогресс</button>
-      </nav>
+const seed=`
+DROP TABLE IF EXISTS deals,products,contacts,users CASCADE;
+CREATE TABLE users(id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,name VARCHAR(120) NOT NULL,email VARCHAR(255) UNIQUE,is_active BOOLEAN NOT NULL DEFAULT TRUE);
+CREATE TABLE contacts(id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,name VARCHAR(150) NOT NULL,phone VARCHAR(30) NOT NULL,email VARCHAR(255),birth_date DATE,is_active BOOLEAN NOT NULL DEFAULT TRUE,created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE products(id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,name VARCHAR(150) NOT NULL,price NUMERIC(12,2) NOT NULL,quantity INTEGER NOT NULL DEFAULT 0,description TEXT,is_available BOOLEAN NOT NULL DEFAULT TRUE);
+CREATE TABLE deals(id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,name VARCHAR(180) NOT NULL,price NUMERIC(12,2),status VARCHAR(30) NOT NULL,responsible_user_id BIGINT REFERENCES users(id),contact_id BIGINT REFERENCES contacts(id),created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
+INSERT INTO users(name,email) VALUES ('Андрей','andrey@example.com'),('Мария','maria@example.com');
+INSERT INTO contacts(name,phone,email) VALUES ('Иван Иванов','+79990000001','ivan@example.com'),('Анна Петрова','+79990000002',NULL);
+INSERT INTO products(name,price,quantity,description) VALUES ('Кондиционер',80000,5,'Базовая модель'),('Монтаж',35000,20,'Монтажные работы');
+INSERT INTO deals(name,price,status,responsible_user_id,contact_id) VALUES
+('Кондиционер',80000,'won',1,1),('Монтаж',35000,'new',1,1),('Ремонт',15000,'lost',2,2),('Premium',150000,'new',2,2),('Монтаж Premium',65000,'won',1,2);
+`;
 
-      <div class="sidebar-progress">
-        <div class="progress-label"><span>Прогресс курса</span><strong id="overallProgressText">0%</strong></div>
-        <div class="progress-track"><div id="overallProgressBar" class="progress-bar"></div></div>
-        <small id="overallProgressMeta">0 / 40 уроков</small>
-      </div>
+const exercises=[
+{id:'3.1',title:'Добавь контакт',task:'Добавь контакт Сергей Сидоров, телефон +79990000003, email sergey@example.com. Колонки перечисли явно.',starter:"INSERT INTO contacts (name, phone, email)\nVALUES ();",check:"SELECT name,phone,email FROM contacts WHERE email='sergey@example.com'",expected:[{name:'Сергей Сидоров',phone:'+79990000003',email:'sergey@example.com'}]},
+{id:'3.2',title:'Добавь товар',task:'Добавь товар Кабель: price 1200.50, quantity 10, description Кабель 5 метров.',starter:"INSERT INTO products (name, price, quantity, description)\nVALUES ();",check:"SELECT name,price::text,quantity,description FROM products WHERE name='Кабель'",expected:[{name:'Кабель',price:'1200.50',quantity:10,description:'Кабель 5 метров'}]},
+{id:'3.3',title:'Несколько строк',task:'Одним INSERT добавь два продукта: Фильтр — 2500, qty 4; Кронштейн — 1800, qty 7.',starter:"INSERT INTO products (name, price, quantity)\nVALUES\n  (),\n  ();",check:"SELECT name,price::text,quantity FROM products WHERE name IN ('Фильтр','Кронштейн') ORDER BY name",expected:[{name:'Кронштейн',price:'1800.00',quantity:7},{name:'Фильтр',price:'2500.00',quantity:4}]},
+{id:'3.4',title:'UPDATE одной строки',task:'Измени email контакта id=1 на ivan.new@example.com.',starter:"UPDATE contacts\nSET email = ''\nWHERE id = ;",check:"SELECT id,email FROM contacts WHERE id=1",expected:[{id:1,email:'ivan.new@example.com'}]},
+{id:'3.5',title:'UPDATE по условию',task:"Сделай все сделки со status='new' дороже на 10 000.",starter:"UPDATE deals\nSET price = price + 10000\nWHERE ;",check:"SELECT name,price::text FROM deals WHERE status='new' ORDER BY id",expected:[{name:'Монтаж',price:'45000.00'},{name:'Premium',price:'160000.00'}]},
+{id:'3.6',title:'Безопасный UPDATE',task:'Сначала мысленно проверь WHERE. Деактивируй только пользователя id=2.',starter:"UPDATE users\nSET is_active = FALSE\nWHERE id = ;",check:"SELECT id,is_active FROM users ORDER BY id",expected:[{id:1,is_active:true},{id:2,is_active:false}]},
+{id:'3.7',title:'DELETE по id',task:'Удалить сделку id=3 и не затронуть остальные.',starter:"DELETE FROM deals\nWHERE id = ;",check:"SELECT id FROM deals ORDER BY id",expected:[{id:1},{id:2},{id:4},{id:5}]},
+{id:'3.8',title:'DELETE по условию',task:"Удалить все lost-сделки.",starter:"DELETE FROM deals\nWHERE ;",check:"SELECT status,count(*)::int n FROM deals GROUP BY status ORDER BY status",expected:[{status:'new',n:2},{status:'won',n:2}]},
+{id:'3.9',title:'INSERT RETURNING',task:"Добавь контакт Олег Смирнов с телефоном +79990000004 и верни id, name через RETURNING.",starter:"INSERT INTO contacts (name, phone)\nVALUES ('Олег Смирнов', '+79990000004')\nRETURNING ;",contains:'returning'},
+{id:'3.10',title:'Исправь опасный запрос',task:"Запрос UPDATE users SET is_active=FALSE; опасен. Перепиши так, чтобы деактивировался только пользователь с email maria@example.com.",starter:"UPDATE users\nSET is_active = FALSE;",check:"SELECT email,is_active FROM users ORDER BY id",expected:[{email:'andrey@example.com',is_active:true},{email:'maria@example.com',is_active:false}]},
+{id:'3.11',title:'Бизнес-кейс CRM',task:"Клиент Иван Иванов больше неактивен. Деактивируй контакт по email, не используя id.",starter:"UPDATE contacts\nSET is_active = FALSE\nWHERE ;",check:"SELECT email,is_active FROM contacts WHERE email='ivan@example.com'",expected:[{email:'ivan@example.com',is_active:false}]},
+{id:'3.12',title:'Мини-кейс',task:"Добавь продукт Диагностика с ценой 5000, quantity 100 и сразу верни id и name.",starter:"INSERT INTO products (name, price, quantity)\nVALUES ('Диагностика', 5000, 100)\nRETURNING ;",contains:'returning'}
+];
 
-      <div class="sidebar-note">
-        <strong>Текущий фокус</strong>
-        <span id="currentFocus">Урок 3 · CRUD</span>
-      </div>
-
-      <button id="resetDbBtn" class="ghost danger">Сбросить учебную БД</button>
-    </aside>
-
-    <main class="main">
-      <header class="topbar">
-        <div>
-          <span class="eyebrow">PostgreSQL · CRM case · Middle+</span>
-          <h1 id="pageTitle">Курс</h1>
-        </div>
-        <div class="top-actions">
-          <button id="schemaBtn" class="ghost compact">Схема CRM</button>
-          <div class="status-pill"><span id="dbDot"></span><span id="dbStatus">PostgreSQL готов</span></div>
-        </div>
-      </header>
-
-      <section id="courseView" class="view"></section>
-      <section id="practiceView" class="view hidden"></section>
-      <section id="interviewView" class="view hidden"></section>
-      <section id="progressView" class="view hidden"></section>
-    </main>
-  </div>
-
-  <dialog id="schemaDialog" class="modal">
-    <div class="modal-head">
-      <div><span class="eyebrow">Учебная модель</span><h2>CRM schema</h2></div>
-      <button class="icon-btn" data-close-dialog>×</button>
-    </div>
-    <div id="schemaContent" class="schema-content"></div>
-  </dialog>
-
-  <script type="module" src="./app.js"></script>
-</body>
-</html>
+let db,activeLesson=3,activeEx=exercises[0].id;
+let store=JSON.parse(localStorage.getItem('sqlschool-progress')||'{"done":[1,2],"passed":[],"attempts":[]}');
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const save=()=>{localStorage.setItem('sqlschool-progress',JSON.stringify(store));progressUI()};
+const norm=rows=>rows.map(r=>Object.fromEntries(Object.entries(r).map(([k,v])=>[k,typeof v==='bigint'?Number(v):v])));
+async function fresh(){const x=await PGlite.create();await x.exec(seed);return x}
+function progressUI(){const n=new Set(store.done).size;$('#prog').textContent=`${n} / 40`;$('#bar').style.width=`${n/40*100}%`}
+function setView(v){['course','practice','interview','progress'].forEach(x=>$('#'+x).classList.toggle('hidden',x!==v));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));$('#page').textContent={course:'Курс',practice:'Практика',interview:'Собеседование',progress:'Прогресс'}[v];if(v==='course')renderCourse();if(v==='practice')renderPractice();if(v==='interview')renderInterview();if(v==='progress')renderProgress()}
+function renderCourse(){
+ let list=roadmap.map((t,i)=>`<button class="lesson ${activeLesson===i+1?'active':''}" data-l="${i+1}"><b>${String(i+1).padStart(2,'0')} · ${esc(t)}</b><small>${details[i+1]?'Материал готов':'Roadmap Middle+'}</small></button>`).join('');
+ let d=details[activeLesson];
+ let body=d?`<span class="tag">${d.lvl}</span><h2>Урок ${activeLesson}. ${esc(roadmap[activeLesson-1])}</h2><p class="muted">${esc(d.summary)}</p>${d.theory.map(x=>`<div class="section"><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></div>`).join('')}<div class="section"><h3>Что могут спросить</h3><ul>${d.interview.map(q=>`<li>${esc(q)}</li>`).join('')}</ul></div>${activeLesson===3?'<button class="btn" id="toPr">Перейти к 12 заданиям</button>':''}`:
+ `<h2>Урок ${activeLesson}. ${esc(roadmap[activeLesson-1])}</h2><p class="muted">Урок уже включён в программу Middle+. Полный учебный материал и практику я буду последовательно добавлять в этот репозиторий. Roadmap зафиксирован, чтобы курс не схлопнулся до базового SQL.</p>`;
+ $('#course').innerHTML=`<div class="hero"><small class="pill">Base → Middle+ → Interview</small><h1>SQL как рабочий инструмент системного аналитика</h1><p class="muted">40 тем: от таблиц и CRUD до EXPLAIN, MVCC, блокировок, JSONB, миграций, идемпотентности и финального интервью.</p></div><div class="grid"><div class="list">${list}</div><article class="card">${body}</article></div>`;
+ $$('[data-l]').forEach(b=>b.onclick=()=>{activeLesson=+b.dataset.l;renderCourse()});if($('#toPr'))$('#toPr').onclick=()=>setView('practice');
+}
+function table(rows){if(!rows?.length)return '<p class="muted">0 строк</p>';let ks=Object.keys(rows[0]);return `<div class="scroll"><table><thead><tr>${ks.map(k=>`<th>${esc(k)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${ks.map(k=>`<td>${esc(r[k])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`}
+function renderPractice(){
+ let ex=exercises.find(x=>x.id===activeEx)||exercises[0];
+ $('#practice').innerHTML=`<div class="practice"><aside class="card"><h3>Урок 3 · CRUD</h3><div class="exlist">${exercises.map(x=>`<button class="ex ${store.passed.includes(x.id)?'done':''}" data-e="${x.id}"><b>${x.id} ${esc(x.title)}</b></button>`).join('')}</div></aside><article class="card"><span class="tag">Практика</span><h2>${esc(ex.title)}</h2><p class="muted">${esc(ex.task)}</p><textarea class="sql" id="sql">${esc(ex.starter)}</textarea><div class="actions"><button class="btn" id="run">Выполнить</button><button class="btn alt" id="check">Проверить</button></div><div id="fb"></div><div id="res"></div></article></div>`;
+ $$('[data-e]').forEach(b=>b.onclick=()=>{activeEx=b.dataset.e;renderPractice()});$('#run').onclick=run;$('#check').onclick=check;
+}
+async function run(){let q=$('#sql').value;try{let r=await db.exec(q);let last=r[r.length-1];$('#res').innerHTML=table(norm(last?.rows||[]));$('#fb').innerHTML='<div class="feedback ok">Запрос выполнен.</div>'}catch(e){$('#fb').innerHTML=`<div class="feedback bad">${esc(e.message)}</div>`}}
+async function check(){
+ let ex=exercises.find(x=>x.id===activeEx),q=$('#sql').value.trim(),ok=false,msg='';
+ try{
+  if(ex.contains){await (await fresh()).exec(q);ok=q.toLowerCase().includes(ex.contains);msg=ok?'Зачтено.':'В запросе не найден RETURNING.'}
+  else{let x=await fresh();await x.exec(q);let r=await x.query(ex.check);let got=norm(r.rows);ok=JSON.stringify(got)===JSON.stringify(ex.expected);msg=ok?'Зачтено. Результат совпадает с эталоном.':'Запрос выполняется, но состояние БД не совпало с ожидаемым.'}
+ }catch(e){msg=e.message}
+ store.attempts.unshift({id:ex.id,sql:q,ok,at:new Date().toISOString(),error:ok?null:msg});if(ok&&!store.passed.includes(ex.id))store.passed.push(ex.id);if(exercises.every(x=>store.passed.includes(x.id))&&!store.done.includes(3))store.done.push(3);save();
+ $('#fb').innerHTML=`<div class="feedback ${ok?'ok':'bad'}">${esc(msg)}</div>`;if(ok)renderPractice()
+}
+function renderInterview(){
+ let qs=Object.entries(details).flatMap(([id,d])=>d.interview.map(q=>({id,q})));let q=qs[Math.floor(Math.random()*qs.length)];
+ $('#interview').innerHTML=`<div class="hero"><small class="pill">Interview mode</small><h1>${esc(q.q)}</h1><p class="muted">Ответь как на собеседовании: определение → механизм → edge case → рабочий пример.</p></div><div class="card"><h3>Самопроверка Middle+</h3><ul><li>Я дал определение одним предложением?</li><li>Объяснил, что реально происходит?</li><li>Назвал риск или trade-off?</li><li>Привёл SQL/CRM-пример?</li></ul><button class="btn" onclick="location.reload()">Другой вопрос</button></div>`
+}
+function renderProgress(){
+ let rate=store.attempts.length?Math.round(store.attempts.filter(x=>x.ok).length/store.attempts.length*100):0;
+ $('#progress').innerHTML=`<div class="kpis"><div class="kpi"><small>Уроки</small><strong>${new Set(store.done).size}/40</strong></div><div class="kpi"><small>Задачи</small><strong>${store.passed.length}/12</strong></div><div class="kpi"><small>Попытки</small><strong>${store.attempts.length}</strong></div><div class="kpi"><small>Успешность</small><strong>${rate}%</strong></div></div><div class="card" style="margin-top:16px"><h2>Последние попытки</h2>${store.attempts.slice(0,20).map(a=>`<p><b>${a.id}</b> · ${a.ok?'✅':'❌'} · <code>${esc(a.sql.replace(/\s+/g,' ').slice(0,130))}</code></p>`).join('')||'<p class="muted">Практики пока нет.</p>'}</div>`
+}
+$$('nav button').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+try{db=await PGlite.create('idb://sqlschool-v1');let r=await db.query("select to_regclass('public.deals') t");if(!r.rows[0].t)await db.exec(seed);$('#dbStatus').textContent='PostgreSQL готов';}catch(e){$('#dbStatus').textContent='Ошибка PostgreSQL';console.error(e)}
+progressUI();renderCourse();
+</script>
+</body></html>
